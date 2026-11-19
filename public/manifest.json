@@ -1,0 +1,19 @@
+{
+  "name": "Ahammed Fertilizer POS & Store Admin",
+  "short_name": "Ahammed POS",
+  "description": "Private Point of Sale, Stock Inventory, and Customer Ledger for Ahammed Fertilizer, Nandair, Chapmatali",
+  "start_url": "/admin",
+  "scope": "/admin",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0B3D2E",
+  "theme_color": "#0B3D2E",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["business", "finance", "productivity"]
+}

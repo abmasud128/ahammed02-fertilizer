@@ -1,0 +1,341 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "cropGuide": "Crop Solutions",
+    "about": "About Us",
+    "offers": "Offers & Schemes",
+    "gallery": "Shop & Stock",
+    "contact": "Contact",
+    "admin": "Dealer Portal",
+    "language": "Language",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "callShop": "Call Shop",
+    "menu": "Menu",
+    "close": "Close",
+    "tagline": "Trusted Farm Solutions",
+    "announcement": "Seasonal offers available. Visit our shop at Nandair, Puliyapara, Chapmatali.",
+    "announcementDismiss": "Dismiss announcement",
+    "categories": "Product Categories",
+    "viewAllProducts": "View All Products",
+    "quickWhatsApp": "WhatsApp",
+    "quickCall": "Call 9091017035",
+    "directions": "Directions"
+  },
+  "home": {
+    "hero": {
+      "badge": "Trusted Since 2015 • Chapmatali, Dakshin Dinajpur",
+      "headlinePart1": "Better Crops Start With",
+      "headlinePart2": "Better Inputs",
+      "highlightWord": "Growth",
+      "subtitle": "Government-licensed fertilizers, certified crop protection medicines & expert field advice tailored for the farmers of Dakshin Dinajpur.",
+      "ctaWhatsApp": "WhatsApp Enquiry",
+      "ctaCall": "Call 9091017035",
+      "statYears": "Years of Service",
+      "statFarmers": "Happy Farmers",
+      "statProducts": "Quality Products",
+      "cardGenuine": "100% Genuine Products",
+      "cardAdvice": "Expert Crop Advice",
+      "scrollDown": "Scroll to explore"
+    },
+    "quickActions": {
+      "call": "Call Now",
+      "whatsapp": "WhatsApp Chat",
+      "directions": "Get Directions",
+      "timings": "Open Mon - Sun: 7:00 AM - 8:30 PM"
+    },
+    "about": {
+      "tag": "About Ahammed Fertilizer",
+      "title": "A Decade of Sowing Trust Across Agricultural Fields",
+      "description": "Established in 2015 at the heart of Dakshin Dinajpur, Ahammed Fertilizer is dedicated to empowering local farmers with authenticated agricultural inputs. We stock only government-certified chemical, organic, and water-soluble fertilizers, world-class crop protection solutions, and high-germination seeds. Our focus is not just sales—we provide crop-stage advisory to maximize yield while preserving soil health.",
+      "readMore": "Read Full Story",
+      "badgeYear": "Serving Since 2015"
+    },
+    "featured": {
+      "tag": "Top Recommendations",
+      "title": "Featured Agricultural Inputs",
+      "subtitle": "Best-selling products trusted by thousands of local cultivators for high productivity.",
+      "viewAll": "View All Products"
+    },
+    "categories": {
+      "tag": "Product Catalog",
+      "title": "Comprehensive Input Categories",
+      "subtitle": "Everything your crop requires from sowing to harvesting under one roof.",
+      "chemical": "Chemical Fertilizers (Urea, DAP, NPK, Potash)",
+      "organic": "Bio & Organic Fertilizers",
+      "pesticides": "Crop Protection (Insecticides & Fungicides)",
+      "seeds": "Certified Hybrid & OP Seeds",
+      "micronutrients": "Micronutrients & Plant Growth Regulators",
+      "equipment": "Sprayers & Agricultural Tools"
+    },
+    "cropSolutions": {
+      "tag": "Field Advisory",
+      "title": "Crop-Wise Nutrition & Protection",
+      "subtitle": "Tailored guidance and recommended input schedules for the primary crops of North Bengal.",
+      "paddy": "Boro & Aman Paddy",
+      "paddyDesc": "Comprehensive nutrient schedules and stem borer / blast management for superior grain fill.",
+      "mustard": "Mustard & Oilseeds",
+      "mustardDesc": "Sulfur-rich nutrition and aphid control to ensure peak oil content and pod weight.",
+      "potato": "Potato Cultivation",
+      "potatoDesc": "Late blight prevention, tuber bulking solutions, and balanced potassium regimes.",
+      "jute": "Jute (Pat)",
+      "juteDesc": "Early vegetative boosts and pest resistance for robust, high-fiber harvest.",
+      "maize": "Corn & Maize",
+      "maizeDesc": "Fall armyworm defense and high-yielding nitrogen-phosphorus delivery.",
+      "vegetables": "Seasonal Vegetables",
+      "vegetablesDesc": "Targeted micronutrients, disease resistance, and fruit setting regulators.",
+      "viewGuide": "Open Crop Schedule"
+    },
+    "whyUs": {
+      "tag": "Our Commitment",
+      "title": "Why Farmers Choose Ahammed Fertilizer",
+      "subtitle": "We operate with total transparency, fair pricing, and genuine manufacturer warranties.",
+      "reasons": [
+        "100% Genuine Licensed Products",
+        "Agronomic & Crop-Stage Guidance",
+        "Extensive Brand Selection",
+        "Fair & Subsidized MRP Pricing",
+        "Prime Accessible Highway Location",
+        "Dedicated Field Follow-Up & Support"
+      ],
+      "descriptions": [
+        "Sourced straight from premier manufacturers like IFFCO, Tata Rallis, Bayer, Syngenta, and Coromandel with proper batch receipts.",
+        "Get practical dosage advice and deficiency diagnosis directly from experienced agricultural input professionals.",
+        "From bulk basal fertilizers to premium foliar micronutrients and pheromone traps, find every requirement in ready stock.",
+        "Zero black-marketing; transparent billing matching government subsidy norms and competitive regional prices.",
+        "Effortless vehicular access with ample loading space for tractors, pickups, and personal transport vehicles.",
+        "We stay connected throughout your crop cycle—call or WhatsApp us anytime for mid-season troubleshooting."
+      ]
+    },
+    "counters": {
+      "years": "9+",
+      "yearsLabel": "Years of Dedication",
+      "farmers": "12,000+",
+      "farmersLabel": "Cultivators Served",
+      "products": "350+",
+      "productsLabel": "Certified Products",
+      "villages": "65+",
+      "villagesLabel": "Villages Connected"
+    },
+    "testimonials": {
+      "tag": "Farmer Voices",
+      "title": "Real Feedback From Real Fields",
+      "subtitle": "Hear what progressive growers across Dakshin Dinajpur say about our stock and advice.",
+      "sampleNote": "Over 12,000 farmers depend on Ahammed Fertilizer every season for authentic inputs and timely delivery."
+    },
+    "offers": {
+      "tag": "Special Deals",
+      "title": "Current Seasonal Offers & Combos",
+      "subtitle": "Save money with bundle discounts on top-grade crop nutrition and seed packages.",
+      "viewAll": "Browse All Offers"
+    },
+    "gallery": {
+      "tag": "Our Facilities",
+      "title": "Shop & Warehouse Gallery",
+      "subtitle": "Take a look at our clean storage facility, well-stocked warehouse, and verified stock ready for delivery.",
+      "viewAll": "View Image Gallery"
+    },
+    "faq": {
+      "tag": "Common Queries",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Get clear answers regarding fertilizer availability, digital billing, bulk delivery, and product genuineness.",
+      "q1": "Are all fertilizers and pesticides sold here genuine and licensed?",
+      "a1": "Yes, absolutely. Ahammed Fertilizer operates under official West Bengal Agriculture Department licenses. All chemical bags come with company batch seals and QR codes for authenticity.",
+      "q2": "Do you provide POS / Aadhaar-linked subsidized fertilizer billing?",
+      "a2": "Yes, we are equipped with the Government mFMS POS terminal for direct Aadhaar-linked subsidized sales of Urea, DAP, MOP, and complex fertilizers.",
+      "q3": "Can I get customized dosage advice for my specific crop?",
+      "a3": "Definitely. Visit our counter or connect with us on WhatsApp with pictures of your standing crop or leaf symptoms. We will advise you on the exact dosage per bigha/acre.",
+      "q4": "Do you arrange bulk tractor-load deliveries for farmer groups?",
+      "a4": "Yes, we facilitate bulk deliveries for farmer groups, cooperative societies, and large acreage growers throughout the Dakshin Dinajpur region.",
+      "q5": "What payment methods are accepted at the shop?",
+      "a5": "We accept Cash, UPI (Google Pay, PhonePe, Paytm), Net Banking, and Kisan Credit Card (KCC) partner bank transfers.",
+      "q6": "Do you stock organic fertilizers and bio-pesticides?",
+      "a6": "Yes, we maintain a robust inventory of city compost, neem cake, vermicompost, Trichoderma, Pseudomonas, and certified bio-stimulants.",
+      "q7": "How can I check if a particular brand or product is in stock?",
+      "a7": "You can check our real-time product catalog right on this website, or click the WhatsApp button to enquire instantly with our inventory counter.",
+      "q8": "What are your peak season working hours?",
+      "a8": "During peak sowing seasons (Boro sowing, Potato plantation, Aman transplantation), we open early from 6:30 AM to 9:00 PM every day including Sundays."
+    },
+    "contact": {
+      "tag": "Reach Out",
+      "title": "Need Guidance for Your Current Crop?",
+      "subtitle": "Reach out to Ahammed Fertilizer today. We are always ready to assist you."
+    }
+  },
+  "products": {
+    "title": "Product Catalog",
+    "subtitle": "Explore authenticated fertilizers, pesticides, growth boosters, and certified seeds.",
+    "search": "Search by product name, brand, or active ingredient...",
+    "filter": "Filter by Category",
+    "allCategories": "All Categories",
+    "categories": {
+      "all": "All",
+      "chemical": "Chemical Fertilizers",
+      "organic": "Organic & Bio Inputs",
+      "pesticides": "Crop Protection / Pesticides",
+      "fungicides": "Fungicides",
+      "herbicides": "Herbicides & Weedicides",
+      "seeds": "Certified Seeds",
+      "micronutrients": "Micronutrients & PGR",
+      "equipment": "Sprayers & Tools"
+    },
+    "noResults": "No matching agricultural inputs found. Try another search or contact us directly.",
+    "enquire": "Enquire on WhatsApp",
+    "viewDetails": "View Details",
+    "usage": "Usage Instructions",
+    "dosage": "Recommended Dosage",
+    "safety": "Safety & Precautions",
+    "relatedProducts": "Recommended Companion Inputs",
+    "packSizes": "Available Pack Sizes",
+    "crops": "Suitable For Crops",
+    "composition": "Technical Composition",
+    "manufacturer": "Manufacturer",
+    "inStock": "In Stock",
+    "outOfStock": "Restocking Soon",
+    "mrp": "MRP Price"
+  },
+  "crops": {
+    "title": "North Bengal Crop Care Calendar",
+    "subtitle": "Step-by-step nutrient schedules, pest calendars, and yield boosting solutions.",
+    "viewGuide": "Open Stage-Wise Guide",
+    "stage": {
+      "basal": "Basal Application / Soil Prep",
+      "vegetative": "Early Vegetative Growth",
+      "tillering": "Branching / Tillering",
+      "flowering": "Pre-Flowering & Blooming",
+      "fruiting": "Pod / Grain Bulking",
+      "harvest": "Maturity & Pre-Harvest"
+    },
+    "recommended": "Recommended Inputs for this Phase",
+    "waterManagement": "Irrigation Notes",
+    "pestAlert": "Common Threats & Watchouts"
+  },
+  "about": {
+    "title": "About Ahammed Fertilizer",
+    "subtitle": "Empowering sustainable farming with integrity, scientific guidance, and quality supplies.",
+    "storyTitle": "Our Journey: Dedicated to the Soil of Dakshin Dinajpur",
+    "storyP1": "Ahammed Fertilizer was established in 2015 with a straightforward mission: to eradicate spurious, adulterated farm inputs from the local market and provide regional cultivators with genuine, high-potency agro-inputs at honest prices.",
+    "storyP2": "Over the years, we have transitioned from a modest neighborhood retail counter into one of Dakshin Dinajpur's most dependable agricultural supply hubs. We have forged direct distributorship ties with India's most respected agrochemical and seed corporations.",
+    "storyP3": "Beyond commerce, we function as a trusted advisory destination. Every day, dozens of cultivators walk into our store seeking practical advice on soil conditioning, pest outbreaks, and fertilizer optimization to protect their investments and ensure prosperity.",
+    "ownerMessage": {
+      "title": "Message From the Proprietor",
+      "author": "Masud Ahammed",
+      "role": "Founder & Certified Agro Input Dealer",
+      "message": "To every farmer in our region: your hard work feeds our nation. We pledge that every single bag, bottle, and packet leaving Ahammed Fertilizer meets strict standards of purity and potency. When your crop prospers, our entire community thrives."
+    },
+    "licences": {
+      "title": "Government Certifications & Licences",
+      "fertLicence": "Fertilizer Retail Licence No: AGR/F/DD/2015-0842",
+      "pestLicence": "Insecticide Retailing Licence No: AGR/P/DD/2016-1190",
+      "seedLicence": "Seed Trading Registration No: AGR/S/DD/2017-0435",
+      "gstin": "GST Registered Enterprise"
+    },
+    "values": {
+      "title": "Our Guiding Values",
+      "authenticity": "Zero Adulteration",
+      "authenticityDesc": "Every product is sourced strictly through approved corporate channels with verifiable lot numbers.",
+      "advisory": "Scientific Advisory",
+      "advisoryDesc": "We advocate balanced fertilizer use (NPK + micro) to safeguard long-term soil vitality.",
+      "farmerFirst": "Farmer-Centric Pricing",
+      "farmerFirstDesc": "Fair government-aligned rates with no unmonitored surge pricing during critical peak periods.",
+      "readiness": "Unmatched Stock Readiness",
+      "readinessDesc": "Critical inputs are maintained in heavy stock weeks before planting cycles begin."
+    },
+    "shopPhotos": "Store & Storage Infrastructure"
+  },
+  "offers": {
+    "title": "Promotions, Schemes & Seasonal Combos",
+    "subtitle": "Take advantage of discounted agricultural bundles curated for ongoing sowing seasons.",
+    "validUntil": "Valid Until",
+    "discount": "Discount Value",
+    "seasonal": "Season Special",
+    "noOffers": "No active promotional combos right now. Check back soon or visit our counter for fresh arrivals!",
+    "bundleIncludes": "Bundle Contents",
+    "claimOffer": "Claim on WhatsApp"
+  },
+  "gallery": {
+    "title": "Store, Warehouse & Farm Gallery",
+    "subtitle": "A glimpse of our inventory, shop premises, customer interactions, and thriving client fields.",
+    "categories": {
+      "all": "All Photos",
+      "shop": "Shop Counter",
+      "warehouse": "Warehouse & Stock",
+      "products": "New Arrivals",
+      "fields": "Farmer Harvests"
+    }
+  },
+  "contact": {
+    "title": "Visit Our Shop or Contact Us",
+    "subtitle": "We are situated conveniently on the main road with tractor access and quick loading assistance.",
+    "form": {
+      "name": "Your Full Name",
+      "namePlaceholder": "e.g. Subir Karmakar",
+      "phone": "Mobile Number",
+      "phonePlaceholder": "e.g. 9876543210",
+      "village": "Village / Gram Panchayat",
+      "villagePlaceholder": "e.g. Kushmandi, Buniadpur",
+      "crop": "Primary Crop / Requirement",
+      "cropPlaceholder": "e.g. Boro Paddy stem borer medicine",
+      "message": "Your Query or Required Product List",
+      "messagePlaceholder": "Tell us how many bighas you are cultivating and what you need...",
+      "submit": "Send Message / Enquiry"
+    },
+    "success": "Thank you! Your enquiry has been received. We will contact you shortly via phone or WhatsApp.",
+    "mapTitle": "Location & Directions",
+    "address": "Ahammed Fertilizer, Main Road, Dakshin Dinajpur, West Bengal 733121",
+    "phoneLabel": "Helpline Numbers",
+    "emailLabel": "Email Address",
+    "hours": "Working Hours",
+    "hoursDetails": "Monday to Sunday: 7:00 AM - 8:30 PM (No weekly off during sowing season)",
+    "whatsappDirect": "Direct WhatsApp Line"
+  },
+  "footer": {
+    "about": "Ahammed Fertilizer is Dakshin Dinajpur's authorized agro-input centre supplying government-approved fertilizers, pesticides, certified hybrid seeds, and professional crop advisory since 2015.",
+    "quickLinks": "Quick Navigation",
+    "contact": "Contact Information",
+    "followUs": "Connect With Us",
+    "safetyNotice": "Always read chemical label instructions and wear protective gear while spraying pesticides. Keep inputs out of reach of children.",
+    "copyright": "All Rights Reserved. Ahammed Fertilizer.",
+    "licences": "Approved by Directorate of Agriculture, Government of West Bengal.",
+    "developerCredit": "Website designed & maintained for rural agricultural enablement."
+  },
+  "admin": {
+    "login": "Dealer Portal Login",
+    "password": "Password",
+    "dashboard": "Shop Management Dashboard",
+    "products": "Manage Products",
+    "offers": "Manage Offers",
+    "gallery": "Manage Gallery",
+    "enquiries": "Farmer Inquiries",
+    "add": "Add New Entry",
+    "edit": "Edit Entry",
+    "delete": "Delete",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "logout": "Log Out",
+    "confirmDelete": "Are you sure you want to permanently delete this item?",
+    "productName": "Product Name",
+    "category": "Category",
+    "brand": "Manufacturer / Brand",
+    "price": "Price (₹)",
+    "stockStatus": "Stock Status",
+    "actions": "Actions"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An unexpected error occurred. Please try again.",
+    "notFound": "Page or Product Not Found",
+    "goBack": "Go Back",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "sampleData": "Illustrative representation of available inventory.",
+    "enquireWhatsApp": "Enquire on WhatsApp",
+    "shareOnWhatsApp": "Share With Fellow Farmer",
+    "call": "Call Now",
+    "clear": "Clear",
+    "apply": "Apply",
+    "badgeAuthentic": "100% Genuine Guaranteed",
+    "currency": "₹"
+  }
+}
