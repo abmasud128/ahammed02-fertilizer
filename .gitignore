@@ -34,8 +34,9 @@ yarn-error.log*
 .env*
 !.env.example
 
-# Local admin, CRM, aquaculture, and enquiry records
-/data/
+# Local backups
+/data/backup*
+/data/*.backup*
 
 # vercel
 .vercel
