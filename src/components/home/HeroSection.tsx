@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, type Variants } from 'framer-motion';
+import { motion, useSpring, useMotionValue, type Variants } from 'framer-motion';
 import { useLanguage } from '@/i18n/provider';
 import { siteConfig } from '@/config/site';
 import { usePrefersReducedMotion } from '@/hooks/useReducedMotion';
@@ -108,16 +108,6 @@ export default function HeroSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
 
-  // Scroll parallax for cinematic fade & translation
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-
   // Animated Word Reveal Helper
   const wordsPart1 = (locale === 'bn' ? 'উন্নত ফলন শুরু হয়' : 'Better Crops Start With').split(' ');
   const wordsPart2 = (locale === 'bn' ? 'সেরা কৃষি উপকরণে' : 'Better Inputs').split(' ');
@@ -175,7 +165,6 @@ export default function HeroSection() {
           
           {/* ── LEFT COLUMN: Typography, CTAs & Trust Strip (Cols 1-7) ── */}
           <motion.div
-            style={prefersReducedMotion ? {} : { y: contentY, opacity: contentOpacity }}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -300,7 +289,6 @@ export default function HeroSection() {
 
           {/* ── RIGHT COLUMN: Hero Action Panel Overlaid on Background (Cols 8-12) ── */}
           <motion.div
-            style={prefersReducedMotion ? {} : { scale: sceneScale, opacity: contentOpacity }}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
