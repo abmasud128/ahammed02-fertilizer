@@ -26,6 +26,12 @@ export async function GET(req: Request) {
         category: prod ? prod.categoryId : '',
         unit: prod ? prod.unit : 'unit',
         isPesticide: prod ? prod.isPesticide : false,
+        packSize: prod?.packSize || '',
+        packageType: prod?.packageType || prod?.unit || 'Pack',
+        packSizeInBaseUnit: prod?.packSizeInBaseUnit || 1,
+        baseUnit: prod?.baseUnit || 'g',
+        packSizeUnit: prod?.packSizeUnit || 'kg',
+        displayUnit: prod?.displayUnit || 'kg',
       };
     });
 

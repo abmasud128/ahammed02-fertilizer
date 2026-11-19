@@ -1,6 +1,62 @@
 {
   "sales": [
     {
+      "id": "sale-1795119005842",
+      "items": [
+        {
+          "id": "sitem-1795119005843-0",
+          "unit": "500 ml Bottle",
+          "profit": 100,
+          "saleId": "sale-1795119005842",
+          "batchId": "batch-1795118819438",
+          "gstRate": 0,
+          "hsnCode": "",
+          "baseUnit": "ml",
+          "discount": 0,
+          "quantity": 1,
+          "saleMode": "pack",
+          "unitCost": 870,
+          "productId": "prod-1795118819437",
+          "unitPrice": 970,
+          "variantId": "primary-prod-1795118819437",
+          "cgstAmount": 0,
+          "sgstAmount": 0,
+          "batchNumber": "BAT-2026-675",
+          "productName": "ERGON",
+          "totalAmount": 970,
+          "buyPerBaseUnit": 1.74,
+          "unitMultiplier": 500,
+          "sellPerBaseUnit": 1.94
+        }
+      ],
+      "notes": "",
+      "status": "completed",
+      "roundOff": 0,
+      "subtotal": 970,
+      "totalTax": 0,
+      "createdAt": "2026-11-19T20:10:05.843Z",
+      "isZeroTax": true,
+      "totalCost": 870,
+      "upiAmount": 0,
+      "cardAmount": 0,
+      "cashAmount": 970,
+      "cgstAmount": 0,
+      "customerId": "cust-1795116097109",
+      "grandTotal": 970,
+      "sgstAmount": 0,
+      "cashierName": "Ahammed Masud (Owner)",
+      "extraCharge": 0,
+      "grossProfit": 100,
+      "paymentMode": "cash",
+      "creditAmount": 0,
+      "customerName": "AB MASUD",
+      "customerPhone": "9091017035",
+      "invoiceNumber": "AF-2026-1071",
+      "discountAmount": 0,
+      "customerVillage": "Nandair",
+      "extraChargeReason": ""
+    },
+    {
       "id": "sale-1795116277231",
       "items": [
         {
@@ -89,10 +145,71 @@
       "sellingPrice": 320,
       "purchasePrice": 290,
       "quantityAvailable": 9675000
+    },
+    {
+      "id": "batch-1795118819438",
+      "mrp": 1200,
+      "createdAt": "2026-11-19T20:06:59.438Z",
+      "productId": "prod-1795118819437",
+      "expiryDate": "2027-12-31",
+      "batchNumber": "BAT-2026-675",
+      "sellingPrice": 970,
+      "purchasePrice": 870,
+      "quantityAvailable": 9500
     }
   ],
   "expenses": [],
   "products": [
+    {
+      "id": "prod-1795118819437",
+      "mrp": 1200,
+      "name": "ERGON",
+      "unit": "bottle",
+      "brand": "TATA",
+      "notes": "",
+      "barcode": "890606371181",
+      "gstRate": 0,
+      "hsnCode": "",
+      "baseUnit": "ml",
+      "packSize": "500 ml",
+      "variants": [
+        {
+          "id": "primary-prod-1795118819437",
+          "unitName": "500 ml Bottle",
+          "multiplier": 0.5,
+          "sellingPrice": 970,
+          "purchasePrice": 870,
+          "mrp": 1200,
+          "isDefault": true
+        }
+      ],
+      "createdAt": "2026-11-19T20:06:59.437Z",
+      "updatedAt": "2026-11-19T20:06:59.437Z",
+      "categoryId": "fungicides",
+      "totalStock": 9999,
+      "displayUnit": "ml",
+      "isPesticide": true,
+      "packageType": "Bottle",
+      "initialBatch": {
+        "quantity": 20,
+        "expiryDate": "2027-12-31",
+        "batchNumber": "BAT-2026-675"
+      },
+      "packSizeUnit": "ml",
+      "sellingPrice": 970,
+      "packSizeValue": 500,
+      "profitPerPack": 100,
+      "purchasePrice": 870,
+      "buyPerBaseUnit": 1.74,
+      "sellPerBaseUnit": 1.94,
+      "buyPerDisplayUnit": 1.74,
+      "lowStockThreshold": 10,
+      "profitPerBaseUnit": 0.2,
+      "packSizeInBaseUnit": 500,
+      "sellPerDisplayUnit": 1.94,
+      "profitPerDisplayUnit": 0.2,
+      "totalStockInBaseUnits": 9500
+    },
     {
       "id": "prod-1795116213038",
       "mrp": 400,
@@ -166,13 +283,99 @@
     "termsConditions": "1. Goods once sold will not be returned without cash memo.\n2. Store all pesticides strictly away from children and cattle.\n3. Verify seal and batch number upon delivery.",
     "pesticideLicence": "WB/DD/PEST/2016/1109",
     "fertilizerLicence": "WB/DD/FERT/2015/0428",
-    "nextInvoiceNumber": 1071,
+    "nextInvoiceNumber": 1072,
     "termsConditionsBn": "১. আসল ক্যাশমেমো ছাড়া পণ্য ফেরত বা বদল করা হবে না।\n২. কীটনাশক ওষুধ শিশুদের নাগালের বাইরে নিরাপদ স্থানে রাখুন।\n৩. ডেলিভারির সময় সিল ও ব্যাচ নম্বর যাচাই করুন।",
     "thermalPrinterSize": "80mm",
     "enablePublicStockSync": true,
     "isStockBaseWeightMigrated": true
   },
   "auditLogs": [
+    {
+      "id": "audit-1795119015037",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T20:10:14.010Z"
+      },
+      "createdAt": "2026-11-19T20:10:15.037Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795119007300",
+      "action": "bill_generated",
+      "details": {
+        "grandTotal": 970,
+        "paymentMode": "cash",
+        "customerName": "AB MASUD",
+        "invoiceNumber": "AF-2026-1071"
+      },
+      "entityId": "sale-1795119005842",
+      "createdAt": "2026-11-19T20:10:07.300Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "sale"
+    },
+    {
+      "id": "audit-1795118821855",
+      "action": "product_created",
+      "details": {
+        "name": "ERGON",
+        "brand": "TATA"
+      },
+      "entityId": "prod-1795118819437",
+      "createdAt": "2026-11-19T20:07:01.855Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "product"
+    },
+    {
+      "id": "audit-1795118314069",
+      "action": "login",
+      "details": {
+        "ip": "152.58.179.216",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:58:32.451Z"
+      },
+      "createdAt": "2026-11-19T19:58:34.069Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795118184262",
+      "action": "login",
+      "details": {
+        "ip": "157.51.77.37",
+        "role": "cashier",
+        "timestamp": "2026-11-19T19:56:22.679Z"
+      },
+      "createdAt": "2026-11-19T19:56:24.262Z",
+      "userEmail": "cashier@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795118114299",
+      "action": "login",
+      "details": {
+        "ip": "157.51.77.37",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:55:12.052Z"
+      },
+      "createdAt": "2026-11-19T19:55:14.299Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795117302704",
+      "action": "login",
+      "details": {
+        "ip": "59.160.220.74",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:41:40.757Z"
+      },
+      "createdAt": "2026-11-19T19:41:42.704Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
     {
       "id": "audit-1795117212917",
       "action": "login",
@@ -362,6 +565,30 @@
     }
   ],
   "movements": [
+    {
+      "id": "mov-1795119005843-0",
+      "type": "sale",
+      "reason": "Sale Memo #AF-2026-1071 (1 500 ml Bottle)",
+      "batchId": "batch-1795118819438",
+      "quantity": 500,
+      "createdAt": "2026-11-19T20:10:05.843Z",
+      "productId": "prod-1795118819437",
+      "batchNumber": "BAT-2026-675",
+      "productName": "ERGON",
+      "balanceAfter": 9500
+    },
+    {
+      "id": "mov-1795118819438",
+      "type": "adjustment_add",
+      "reason": "Initial Opening Stock Entry (20 Bottles = 10000 ml)",
+      "batchId": "batch-1795118819438",
+      "quantity": 10000,
+      "createdAt": "2026-11-19T20:06:59.438Z",
+      "productId": "prod-1795118819437",
+      "batchNumber": "BAT-2026-675",
+      "productName": "ERGON",
+      "balanceAfter": 10000
+    },
     {
       "id": "mov-1795116277232-0",
       "type": "sale",

@@ -499,10 +499,20 @@ export const db = {
         );
       }
       targetBatch.quantityAvailable += delta;
+      if (targetBatch.quantityAvailable < 0) targetBatch.quantityAvailable = 0;
     }
 
-    product.totalStock += delta;
-    if (product.totalStock < 0) product.totalStock = 0;
+    if (product.totalStockInBaseUnits !== undefined) {
+      product.totalStockInBaseUnits = Math.max(0, (product.totalStockInBaseUnits || 0) + delta);
+    }
+    const packSize = product.packSizeInBaseUnit && product.packSizeInBaseUnit > 0 ? product.packSizeInBaseUnit : 1;
+    product.totalStock = product.totalStockInBaseUnits !== undefined
+      ? Math.max(0, Math.round((product.totalStockInBaseUnits / packSize) * 100) / 100)
+      : Math.max(0, product.totalStock + delta);
+
+    const balanceAfter = product.totalStockInBaseUnits !== undefined
+      ? product.totalStockInBaseUnits
+      : product.totalStock;
 
     const movement: StockMovementRecord = {
       id: `mov-${Date.now()}`,
@@ -512,7 +522,7 @@ export const db = {
       batchNumber: targetBatch?.batchNumber,
       type: params.type,
       quantity: params.quantity,
-      balanceAfter: product.totalStock,
+      balanceAfter,
       reason: params.reason,
       performedByName: params.performedByName || 'Ahammed Masud',
       createdAt: new Date().toISOString(),

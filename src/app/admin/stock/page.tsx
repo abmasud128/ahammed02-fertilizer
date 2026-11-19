@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ProductRecord, StockMovementRecord } from '@/types/admin';
 import { formatStockDisplay, parsePackSize } from '@/lib/inventory/units';
+import { formatBaseStockDisplay } from '@/lib/inventory/unit-calculator';
 
 interface EnrichedBatch {
   id: string;
@@ -38,6 +39,12 @@ interface EnrichedBatch {
   category: string;
   unit: string;
   isPesticide: boolean;
+  packSize?: string;
+  packageType?: string;
+  packSizeInBaseUnit?: number;
+  baseUnit?: string;
+  packSizeUnit?: string;
+  displayUnit?: string;
 }
 
 export default function AdminStockPage() {
@@ -116,10 +123,14 @@ export default function AdminStockPage() {
     try {
       const parsed = parsePackSize(selectedProduct.packSize, selectedProduct.unit);
       const isBagAdjustment = adjustUnit === 'bag' && parsed.isWeightBased && parsed.baseMultiplier > 1;
-      const multiplier = isBagAdjustment ? parsed.baseMultiplier : 1;
-      const finalQty = Math.round(Number(adjustQty) * multiplier * 100) / 100;
+      
+      const packBase = selectedProduct.packSizeInBaseUnit || (parsed.baseMultiplier * (parsed.isWeightBased ? 1000 : 1));
+      const quantityInBase = isBagAdjustment
+        ? Math.round(Number(adjustQty) * packBase)
+        : Math.round(Number(adjustQty) * (parsed.isWeightBased ? 1000 : 1));
+
       const formattedReason = isBagAdjustment
-        ? `${adjustReason} (${adjustQty} Bags = ${finalQty} kg)`
+        ? `${adjustReason} (${adjustQty} Bags = ${(quantityInBase / 1000).toLocaleString()} kg)`
         : `${adjustReason} (${adjustQty} kg/loose)`;
 
       const res = await fetch('/api/admin/stock/adjust', {
@@ -129,7 +140,7 @@ export default function AdminStockPage() {
           productId: selectedProduct.id,
           batchId: selectedBatchId || undefined,
           type: adjustType,
-          quantity: finalQty,
+          quantity: quantityInBase,
           reason: formattedReason,
         }),
       });
@@ -396,7 +407,9 @@ export default function AdminStockPage() {
                   <th className="py-3 px-4 font-bold">Category</th>
                   <th className="py-3 px-4 font-bold">Expiry Date</th>
                   <th className="py-3 px-4 font-bold text-center">Days Left</th>
+                  <th className="py-3 px-4 font-bold text-center">Cost / MRP</th>
                   <th className="py-3 px-4 font-bold text-center">Available Stock</th>
+                  <th className="py-3 px-4 font-bold text-right">Batch Value</th>
                   <th className="py-3 px-4 font-bold text-right">Status / Safety</th>
                 </tr>
               </thead>
@@ -406,6 +419,20 @@ export default function AdminStockPage() {
                   const daysLeft = Math.ceil((expTime - now) / (1000 * 3600 * 24));
                   const isExpired = daysLeft <= 0;
                   const isUrgent = daysLeft > 0 && daysLeft <= 45;
+
+                  const packSize = b.packSizeInBaseUnit && b.packSizeInBaseUnit > 0 ? b.packSizeInBaseUnit : 1;
+                  const batchPacks = b.quantityAvailable / packSize;
+                  const batchVal = batchPacks * (b.purchasePrice || 0);
+
+                  const stockInfo = b.packSizeInBaseUnit && b.packSizeInBaseUnit > 1
+                    ? formatBaseStockDisplay(
+                        b.quantityAvailable,
+                        b.packSizeInBaseUnit,
+                        b.packageType || b.unit,
+                        (b.baseUnit as any) || 'g',
+                        (b.packSizeUnit as any) || 'kg'
+                      )
+                    : formatStockDisplay(b.quantityAvailable, b.packSize, b.unit);
 
                   return (
                     <tr key={b.id} className="hover:bg-gray-50/50 dark:hover:bg-white/5 transition-colors">
@@ -421,7 +448,9 @@ export default function AdminStockPage() {
                             </span>
                           )}
                         </div>
-                        <div className="text-[10px] text-gray-400">{b.productBrand}</div>
+                        <div className="text-[10px] text-gray-400">
+                          {b.productBrand} {b.packSize ? `• ${b.packSize}` : ''}
+                        </div>
                       </td>
                       <td className="py-3 px-4 capitalize font-medium text-gray-600 dark:text-gray-400">
                         {b.category}
@@ -431,15 +460,31 @@ export default function AdminStockPage() {
                       </td>
                       <td className="py-3 px-4 text-center font-bold">
                         {isExpired ? (
-                          <span className="text-red-600">Expired</span>
+                          <span className="text-red-600 font-extrabold">Expired</span>
                         ) : (
-                          <span className={isUrgent ? 'text-amber-600' : 'text-emerald-600'}>
+                          <span className={isUrgent ? 'text-amber-600 font-bold' : 'text-emerald-600 font-bold'}>
                             {daysLeft} days
                           </span>
                         )}
                       </td>
-                      <td className="py-3 px-4 text-center font-bold text-sm text-gray-900 dark:text-gray-100">
-                        {formatStockDisplay(b.quantityAvailable, undefined, b.unit).primary}
+                      <td className="py-3 px-4 text-center font-mono text-xs">
+                        <span className="font-bold text-gray-800 dark:text-gray-200">₹{b.purchasePrice}</span>
+                        <span className="text-gray-400 mx-1">/</span>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-bold">₹{b.sellingPrice}</span>
+                        {b.mrp ? <div className="text-[10px] text-gray-400 line-through">MRP ₹{b.mrp}</div> : null}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <div className="font-black text-sm text-gray-900 dark:text-gray-100">
+                          {stockInfo.primary}
+                        </div>
+                        {stockInfo.secondary && (
+                          <div className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                            {stockInfo.secondary}
+                          </div>
+                        )}
+                      </td>
+                      <td className="py-3 px-4 text-right font-extrabold text-sm text-forest dark:text-emerald-300">
+                        {formatINR(batchVal)}
                       </td>
                       <td className="py-3 px-4 text-right">
                         {isExpired ? (
@@ -462,7 +507,7 @@ export default function AdminStockPage() {
 
                 {filteredBatches.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="py-10 text-center text-gray-400">
+                    <td colSpan={9} className="py-10 text-center text-gray-400">
                       No batches found matching filter.
                     </td>
                   </tr>
@@ -484,15 +529,29 @@ export default function AdminStockPage() {
                   <th className="py-3 px-4 font-bold">Category</th>
                   <th className="py-3 px-4 font-bold text-center">Min Threshold</th>
                   <th className="py-3 px-4 font-bold text-center">Total Stock</th>
+                  <th className="py-3 px-4 font-bold text-right">Stock Value</th>
                   <th className="py-3 px-4 font-bold text-center">Stock Status</th>
                   <th className="py-3 px-4 font-bold text-right">Quick Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-white/5">
                 {filteredProducts.map((p) => {
-                  const isLow = (p.totalStock || 0) <= (p.lowStockThreshold || 10);
-                  const isOut = (p.totalStock || 0) === 0;
-                  const stockInfo = formatStockDisplay(p.totalStock, p.packSize, p.unit);
+                  const packSize = p.packSizeInBaseUnit && p.packSizeInBaseUnit > 0 ? p.packSizeInBaseUnit : 1;
+                  const baseStock = p.totalStockInBaseUnits !== undefined ? p.totalStockInBaseUnits : (p.totalStock || 0);
+                  const wholePacks = baseStock / packSize;
+                  const isLow = wholePacks <= (p.lowStockThreshold || 10) && wholePacks > 0;
+                  const isOut = wholePacks === 0;
+                  const stockInfo = p.totalStockInBaseUnits !== undefined
+                    ? formatBaseStockDisplay(
+                        p.totalStockInBaseUnits,
+                        p.packSizeInBaseUnit || 1,
+                        p.packageType || p.unit,
+                        (p.baseUnit as any) || 'g',
+                        (p.packSizeUnit as any) || 'kg'
+                      )
+                    : formatStockDisplay(p.totalStock, p.packSize, p.unit);
+
+                  const productValuation = wholePacks * (p.purchasePrice || (p as any).costPrice || 0);
 
                   return (
                     <tr key={p.id} className="hover:bg-gray-50/50 dark:hover:bg-white/5 transition-colors">
@@ -515,6 +574,9 @@ export default function AdminStockPage() {
                             {stockInfo.secondary}
                           </div>
                         )}
+                      </td>
+                      <td className="py-3 px-4 text-right font-extrabold text-sm text-forest dark:text-emerald-300">
+                        {formatINR(productValuation)}
                       </td>
                       <td className="py-3 px-4 text-center">
                         {isOut ? (
@@ -568,6 +630,11 @@ export default function AdminStockPage() {
               <tbody className="divide-y divide-gray-100 dark:divide-white/5">
                 {filteredMovements.map((m) => {
                   const isAdd = m.type === 'purchase' || m.type === 'adjustment_add' || m.type === 'return';
+                  const prod = products.find((p) => p.id === m.productId);
+                  const packBase = prod?.packSizeInBaseUnit && prod.packSizeInBaseUnit > 1 ? prod.packSizeInBaseUnit : 1;
+                  const hasPack = packBase > 1;
+                  const qtyPacks = hasPack ? Math.round((m.quantity / packBase) * 100) / 100 : m.quantity;
+                  const balPacks = hasPack ? Math.round((m.balanceAfter / packBase) * 100) / 100 : m.balanceAfter;
 
                   return (
                     <tr key={m.id} className="hover:bg-gray-50/50 dark:hover:bg-white/5 transition-colors">
@@ -598,10 +665,20 @@ export default function AdminStockPage() {
                         </span>
                       </td>
                       <td className={`py-3 px-4 text-center font-bold text-sm ${isAdd ? 'text-emerald-600' : 'text-red-600'}`}>
-                        {isAdd ? `+${m.quantity}` : `-${m.quantity}`}
+                        <div>{isAdd ? `+${qtyPacks}` : `-${qtyPacks}`} {hasPack ? (prod?.packageType || 'Bags') : (prod?.unit || 'units')}</div>
+                        {hasPack && (
+                          <div className="text-[10px] font-normal text-gray-400">
+                            ({(m.quantity / 1000).toLocaleString()} kg)
+                          </div>
+                        )}
                       </td>
                       <td className="py-3 px-4 text-center font-bold text-gray-700 dark:text-gray-300">
-                        {m.balanceAfter}
+                        <div>{balPacks} {hasPack ? (prod?.packageType || 'Bags') : (prod?.unit || 'units')}</div>
+                        {hasPack && (
+                          <div className="text-[10px] font-normal text-gray-400">
+                            ({(m.balanceAfter / 1000).toLocaleString()} kg)
+                          </div>
+                        )}
                       </td>
                       <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
                         {m.reason}
