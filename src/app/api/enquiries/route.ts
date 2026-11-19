@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { getSession } from '@/lib/auth/session';
+import { getCloudData, saveCloudData } from '@/lib/cloud-store';
 
 export interface EnquiryRecord {
   id: string;
@@ -18,26 +19,11 @@ const DATA_DIR = path.join(process.cwd(), 'data');
 const DATA_FILE = path.join(DATA_DIR, 'enquiries.json');
 
 async function getEnquiries(): Promise<EnquiryRecord[]> {
-  try {
-    const data = await fs.readFile(DATA_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (err: unknown) {
-    if (
-      typeof err === 'object' &&
-      err !== null &&
-      'code' in err &&
-      err.code === 'ENOENT'
-    ) {
-      return [];
-    }
-    console.error('Error reading enquiries.json:', err);
-    throw err;
-  }
+  return getCloudData<EnquiryRecord[]>('enquiries', DATA_FILE, () => []);
 }
 
 async function saveEnquiries(enquiries: EnquiryRecord[]): Promise<void> {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.writeFile(DATA_FILE, JSON.stringify(enquiries, null, 2), 'utf-8');
+  await saveCloudData('enquiries', DATA_FILE, enquiries);
 }
 
 export async function POST(req: NextRequest) {

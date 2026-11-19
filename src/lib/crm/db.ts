@@ -6,6 +6,7 @@
  */
 import fs from 'fs/promises';
 import path from 'path';
+import { getCloudData, saveCloudData } from '@/lib/cloud-store';
 import {
   CrmSettings,
   CrmLandPlot,
@@ -61,62 +62,26 @@ async function ensureDataDir(): Promise<void> {
 }
 
 async function getStore(): Promise<CrmStore> {
-  if (inMemoryCrmStore) {
-    return inMemoryCrmStore;
-  }
+  const defaultInit = (): CrmStore => ({
+    settings: INITIAL_CRM_SETTINGS,
+    plots: INITIAL_CRM_PLOTS,
+    cultivations: INITIAL_CRM_CULTIVATIONS,
+    cases: INITIAL_CRM_CASES,
+    followups: [],
+    testRequests: INITIAL_CRM_TEST_REQUESTS,
+    testResults: INITIAL_CRM_TEST_RESULTS,
+    nextCaseSequence: 1,
+    nextTestSequence: 1,
+  });
 
-  await ensureDataDir();
-
-  try {
-    const raw = await fs.readFile(CRM_STORE_FILE, 'utf-8');
-    const parsed = JSON.parse(raw);
-    inMemoryCrmStore = {
-      settings: parsed.settings || INITIAL_CRM_SETTINGS,
-      plots: Array.isArray(parsed.plots) ? parsed.plots : INITIAL_CRM_PLOTS,
-      cultivations: Array.isArray(parsed.cultivations) ? parsed.cultivations : INITIAL_CRM_CULTIVATIONS,
-      cases: Array.isArray(parsed.cases) ? parsed.cases : INITIAL_CRM_CASES,
-      followups: Array.isArray(parsed.followups) ? parsed.followups : [],
-      testRequests: Array.isArray(parsed.testRequests) ? parsed.testRequests : INITIAL_CRM_TEST_REQUESTS,
-      testResults: Array.isArray(parsed.testResults) ? parsed.testResults : INITIAL_CRM_TEST_RESULTS,
-      nextCaseSequence: typeof parsed.nextCaseSequence === 'number' ? parsed.nextCaseSequence : 1,
-      nextTestSequence: typeof parsed.nextTestSequence === 'number' ? parsed.nextTestSequence : 1,
-    };
-  } catch {
-    // Seed initial store
-    const seedFollowups = extractSeedFollowups(INITIAL_CRM_CASES);
-    inMemoryCrmStore = {
-      settings: INITIAL_CRM_SETTINGS,
-      plots: INITIAL_CRM_PLOTS,
-      cultivations: INITIAL_CRM_CULTIVATIONS,
-      cases: INITIAL_CRM_CASES,
-      followups: seedFollowups,
-      testRequests: INITIAL_CRM_TEST_REQUESTS,
-      testResults: INITIAL_CRM_TEST_RESULTS,
-      nextCaseSequence: 3,
-      nextTestSequence: 3,
-    };
-    await persistStore();
-  }
-
-  return inMemoryCrmStore!;
-}
-
-function extractSeedFollowups(cases: CrmCase[]): CrmFollowup[] {
-  const followups: CrmFollowup[] = [];
-  for (const c of cases) {
-    if (c.followups && c.followups.length > 0) {
-      followups.push(...c.followups);
-    }
-  }
-  return followups;
+  const store = await getCloudData<CrmStore>('crm-store', CRM_STORE_FILE, defaultInit);
+  inMemoryCrmStore = store;
+  return store;
 }
 
 async function persistStore(): Promise<void> {
   if (!inMemoryCrmStore) return;
-  await ensureDataDir();
-  const tempFile = `${CRM_STORE_FILE}.tmp.${Date.now()}`;
-  await fs.writeFile(tempFile, JSON.stringify(inMemoryCrmStore, null, 2), 'utf-8');
-  await fs.rename(tempFile, CRM_STORE_FILE);
+  await saveCloudData('crm-store', CRM_STORE_FILE, inMemoryCrmStore);
 }
 
 export const crmDb = {

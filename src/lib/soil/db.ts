@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { getCloudData, saveCloudData } from '@/lib/cloud-store';
 import {
   SoilFarmer,
   SoilField,
@@ -31,28 +32,20 @@ async function ensureDataDir(): Promise<void> {
 }
 
 async function loadStore(): Promise<SoilStore> {
-  if (inMemorySoilStore) return inMemorySoilStore;
+  const defaultInit = (): SoilStore => ({
+    farmers: INITIAL_FARMERS,
+    fields: INITIAL_FIELDS,
+    samples: INITIAL_SAMPLES,
+  });
 
-  await ensureDataDir();
-  try {
-    const raw = await fs.readFile(SOIL_STORE_FILE, 'utf-8');
-    inMemorySoilStore = JSON.parse(raw);
-    return inMemorySoilStore!;
-  } catch {
-    inMemorySoilStore = {
-      farmers: INITIAL_FARMERS,
-      fields: INITIAL_FIELDS,
-      samples: INITIAL_SAMPLES,
-    };
-    await saveStore();
-    return inMemorySoilStore;
-  }
+  const store = await getCloudData<SoilStore>('soil-store', SOIL_STORE_FILE, defaultInit);
+  inMemorySoilStore = store;
+  return store;
 }
 
 async function saveStore(): Promise<void> {
   if (!inMemorySoilStore) return;
-  await ensureDataDir();
-  await fs.writeFile(SOIL_STORE_FILE, JSON.stringify(inMemorySoilStore, null, 2), 'utf-8');
+  await saveCloudData('soil-store', SOIL_STORE_FILE, inMemorySoilStore);
 }
 
 export const soilDb = {

@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { getCloudData, saveCloudData } from '../cloud-store';
 import {
   AdminUser,
   ShopSettings,
@@ -177,59 +178,37 @@ function migrateStoreToBaseUnitCalculations(store: AdminStore): boolean {
   return modified;
 }
 
-// Initialize or load the store
+// Initialize or load the store (Synced live with Supabase cloud across Vercel)
 async function loadStore(): Promise<AdminStore> {
-  if (inMemoryStore) {
-    return inMemoryStore;
-  }
+  const defaultInit = (): AdminStore => ({
+    settings: INITIAL_SETTINGS,
+    users: INITIAL_USERS,
+    categories: INITIAL_CATEGORIES,
+    products: INITIAL_PRODUCTS,
+    batches: INITIAL_BATCHES,
+    movements: [],
+    suppliers: INITIAL_SUPPLIERS,
+    purchases: [],
+    customers: INITIAL_CUSTOMERS,
+    ledger: [],
+    sales: INITIAL_SALES,
+    expenses: INITIAL_EXPENSES,
+    auditLogs: [],
+  });
 
-  try {
-    const raw = await fs.readFile(STORE_FILE, 'utf-8');
-    inMemoryStore = JSON.parse(raw);
-    const didMigrate1 = migrateStoreToBaseWeight(inMemoryStore!);
-    const didMigrate2 = migrateStoreToBaseUnitCalculations(inMemoryStore!);
-    if (didMigrate1 || didMigrate2) {
-      await persistStore(inMemoryStore!);
-    }
-    return inMemoryStore!;
-  } catch {
-    // Seed initial store
-    inMemoryStore = {
-      settings: INITIAL_SETTINGS,
-      users: INITIAL_USERS,
-      categories: INITIAL_CATEGORIES,
-      products: INITIAL_PRODUCTS,
-      batches: INITIAL_BATCHES,
-      movements: [],
-      suppliers: INITIAL_SUPPLIERS,
-      purchases: [],
-      customers: INITIAL_CUSTOMERS,
-      ledger: [],
-      sales: INITIAL_SALES,
-      expenses: INITIAL_EXPENSES,
-      auditLogs: [
-        {
-          id: 'log-seed-1',
-          userEmail: 'system@ahammedfertilizer.com',
-          action: 'store_initialized',
-          entityType: 'system',
-          createdAt: new Date().toISOString(),
-          details: { message: 'Ahammed Fertilizer Admin Store Seeded' },
-        },
-      ],
-    };
-    await persistStore(inMemoryStore);
-    return inMemoryStore;
+  const store = await getCloudData<AdminStore>('admin-store', STORE_FILE, defaultInit);
+  const didMigrate1 = migrateStoreToBaseWeight(store);
+  const didMigrate2 = migrateStoreToBaseUnitCalculations(store);
+  if (didMigrate1 || didMigrate2) {
+    await persistStore(store);
   }
+  inMemoryStore = store;
+  return store;
 }
 
 async function persistStore(store: AdminStore): Promise<void> {
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.writeFile(STORE_FILE, JSON.stringify(store, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Failed to write admin store to disk:', err);
-  }
+  inMemoryStore = store;
+  await saveCloudData('admin-store', STORE_FILE, store);
 }
 
 /* ============================================================================

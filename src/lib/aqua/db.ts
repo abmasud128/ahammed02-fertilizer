@@ -4,6 +4,7 @@
  */
 import fs from 'fs/promises';
 import path from 'path';
+import { getCloudData, saveCloudData } from '@/lib/cloud-store';
 import {
   AquaDistrict,
   AquaBlock,
@@ -88,80 +89,41 @@ async function ensureDataDir(): Promise<void> {
 }
 
 async function getStore(): Promise<AquaStore> {
-  if (inMemoryAquaStore) {
-    return inMemoryAquaStore;
-  }
+  const defaultInit = (): AquaStore => ({
+    districts: INITIAL_DISTRICTS,
+    blocks: INITIAL_BLOCKS,
+    villages: INITIAL_VILLAGES,
+    species: INITIAL_SPECIES,
+    feedBrands: INITIAL_FEED_BRANDS,
+    farmers: INITIAL_DEMO_FARMERS,
+    duplicateAlerts: [],
+    ponds: INITIAL_DEMO_PONDS,
+    productionCycles: INITIAL_DEMO_CYCLES,
+    stockingRecords: INITIAL_DEMO_STOCKING,
+    feedEvents: INITIAL_DEMO_FEED_EVENTS,
+    waterQualityReadings: INITIAL_DEMO_WATER_QUALITY,
+    problemReports: INITIAL_DEMO_PROBLEMS,
+    interventions: INITIAL_DEMO_INTERVENTIONS,
+    growthSamples: INITIAL_DEMO_GROWTH_SAMPLES,
+    mortalityEvents: INITIAL_DEMO_MORTALITIES,
+    harvests: INITIAL_DEMO_HARVESTS,
+    expenses: INITIAL_DEMO_EXPENSES,
+    sales: INITIAL_DEMO_SALES,
+    revisions: [],
+    auditLogs: [],
+    nextFarmerSequence: 1,
+    nextPondSequence: 1,
+    nextCycleSequence: 1,
+  });
 
-  await ensureDataDir();
-
-  try {
-    const raw = await fs.readFile(AQUA_STORE_FILE, 'utf-8');
-    const parsed = JSON.parse(raw);
-    inMemoryAquaStore = {
-      districts: Array.isArray(parsed.districts) ? parsed.districts : INITIAL_DISTRICTS,
-      blocks: Array.isArray(parsed.blocks) ? parsed.blocks : INITIAL_BLOCKS,
-      villages: Array.isArray(parsed.villages) ? parsed.villages : INITIAL_VILLAGES,
-      species: Array.isArray(parsed.species) ? parsed.species : INITIAL_SPECIES,
-      feedBrands: Array.isArray(parsed.feedBrands) ? parsed.feedBrands : INITIAL_FEED_BRANDS,
-      farmers: Array.isArray(parsed.farmers) ? parsed.farmers : INITIAL_DEMO_FARMERS,
-      duplicateAlerts: Array.isArray(parsed.duplicateAlerts) ? parsed.duplicateAlerts : [],
-      ponds: Array.isArray(parsed.ponds) ? parsed.ponds : INITIAL_DEMO_PONDS,
-      productionCycles: Array.isArray(parsed.productionCycles) ? parsed.productionCycles : INITIAL_DEMO_CYCLES,
-      stockingRecords: Array.isArray(parsed.stockingRecords) ? parsed.stockingRecords : INITIAL_DEMO_STOCKING,
-      feedEvents: Array.isArray(parsed.feedEvents) ? parsed.feedEvents : INITIAL_DEMO_FEED_EVENTS,
-      waterQualityReadings: Array.isArray(parsed.waterQualityReadings) ? parsed.waterQualityReadings : INITIAL_DEMO_WATER_QUALITY,
-      problemReports: Array.isArray(parsed.problemReports) ? parsed.problemReports : INITIAL_DEMO_PROBLEMS,
-      interventions: Array.isArray(parsed.interventions) ? parsed.interventions : INITIAL_DEMO_INTERVENTIONS,
-      growthSamples: Array.isArray(parsed.growthSamples) ? parsed.growthSamples : INITIAL_DEMO_GROWTH_SAMPLES,
-      mortalityEvents: Array.isArray(parsed.mortalityEvents) ? parsed.mortalityEvents : INITIAL_DEMO_MORTALITIES,
-      harvests: Array.isArray(parsed.harvests) ? parsed.harvests : INITIAL_DEMO_HARVESTS,
-      expenses: Array.isArray(parsed.expenses) ? parsed.expenses : INITIAL_DEMO_EXPENSES,
-      sales: Array.isArray(parsed.sales) ? parsed.sales : INITIAL_DEMO_SALES,
-      revisions: Array.isArray(parsed.revisions) ? parsed.revisions : [],
-      auditLogs: Array.isArray(parsed.auditLogs) ? parsed.auditLogs : [],
-      nextFarmerSequence: typeof parsed.nextFarmerSequence === 'number' ? parsed.nextFarmerSequence : 1,
-      nextPondSequence: typeof parsed.nextPondSequence === 'number' ? parsed.nextPondSequence : 1,
-      nextCycleSequence: typeof parsed.nextCycleSequence === 'number' ? parsed.nextCycleSequence : 1,
-    };
-    return inMemoryAquaStore!;
-  } catch {
-    inMemoryAquaStore = {
-      districts: INITIAL_DISTRICTS,
-      blocks: INITIAL_BLOCKS,
-      villages: INITIAL_VILLAGES,
-      species: INITIAL_SPECIES,
-      feedBrands: INITIAL_FEED_BRANDS,
-      farmers: INITIAL_DEMO_FARMERS,
-      duplicateAlerts: [],
-      ponds: INITIAL_DEMO_PONDS,
-      productionCycles: INITIAL_DEMO_CYCLES,
-      stockingRecords: INITIAL_DEMO_STOCKING,
-      feedEvents: INITIAL_DEMO_FEED_EVENTS,
-      waterQualityReadings: INITIAL_DEMO_WATER_QUALITY,
-      problemReports: INITIAL_DEMO_PROBLEMS,
-      interventions: INITIAL_DEMO_INTERVENTIONS,
-      growthSamples: INITIAL_DEMO_GROWTH_SAMPLES,
-      mortalityEvents: INITIAL_DEMO_MORTALITIES,
-      harvests: INITIAL_DEMO_HARVESTS,
-      expenses: INITIAL_DEMO_EXPENSES,
-      sales: INITIAL_DEMO_SALES,
-      revisions: [],
-      auditLogs: [],
-      nextFarmerSequence: 3,
-      nextPondSequence: 4,
-      nextCycleSequence: 2,
-    };
-    await persistStore();
-    return inMemoryAquaStore!;
-  }
+  const store = await getCloudData<AquaStore>('aqua-store', AQUA_STORE_FILE, defaultInit);
+  inMemoryAquaStore = store;
+  return store;
 }
 
 async function persistStore(): Promise<void> {
   if (!inMemoryAquaStore) return;
-  await ensureDataDir();
-  const tempFile = `${AQUA_STORE_FILE}.tmp`;
-  await fs.writeFile(tempFile, JSON.stringify(inMemoryAquaStore, null, 2), 'utf-8');
-  await fs.rename(tempFile, AQUA_STORE_FILE);
+  await saveCloudData('aqua-store', AQUA_STORE_FILE, inMemoryAquaStore);
 }
 
 // Levenshtein distance for duplicate name detection
