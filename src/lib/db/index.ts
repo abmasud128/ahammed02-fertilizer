@@ -1142,15 +1142,40 @@ export const db = {
     const monthSalesList = activeSales.filter((s) => s.createdAt >= monthStart);
     const monthSales = monthSalesList.reduce((acc, s) => acc + s.grandTotal, 0);
 
-    // Stock Valuation
+    // Stock Valuation (accurately accounts for base units vs package sizes and batches)
     const totalStockValue = store.products.reduce((acc, p) => {
-      return acc + (p.totalStock || 0) * (p.purchasePrice || 0);
+      const pBatches = store.batches.filter((b) => b.productId === p.id && b.quantityAvailable > 0);
+      let productVal = 0;
+
+      if (pBatches.length > 0) {
+        for (const b of pBatches) {
+          const packSize = p.packSizeInBaseUnit && p.packSizeInBaseUnit > 0 ? p.packSizeInBaseUnit : 1;
+          const packs = b.quantityAvailable / packSize;
+          const buyPrice = b.purchasePrice || p.purchasePrice || 0;
+          productVal += packs * buyPrice;
+        }
+      } else {
+        const baseStock = typeof p.totalStockInBaseUnits === 'number'
+          ? p.totalStockInBaseUnits
+          : (p.totalStock || 0);
+        const packSize = p.packSizeInBaseUnit && p.packSizeInBaseUnit > 0 ? p.packSizeInBaseUnit : 1;
+        const packs = baseStock / packSize;
+        const buyPrice = p.purchasePrice || (p as any).costPrice || 0;
+        productVal += packs * buyPrice;
+      }
+
+      return acc + (isNaN(productVal) || productVal < 0 ? 0 : Math.round(productVal * 100) / 100);
     }, 0);
 
-    // Low stock products
-    const lowStockProducts = store.products.filter(
-      (p) => (p.totalStock || 0) <= (p.lowStockThreshold || 10)
-    );
+    // Low stock products (correctly calculates available packs against lowStockThreshold)
+    const lowStockProducts = store.products.filter((p) => {
+      const packSize = p.packSizeInBaseUnit && p.packSizeInBaseUnit > 0 ? p.packSizeInBaseUnit : 1;
+      const baseStock = typeof p.totalStockInBaseUnits === 'number'
+        ? p.totalStockInBaseUnits
+        : (p.totalStock || 0);
+      const packs = baseStock / packSize;
+      return packs <= (p.lowStockThreshold || 10);
+    });
 
     // Expiring Batches (within 90 days or expired)
     const ninetyDaysAhead = new Date(Date.now() + 90 * 24 * 3600 * 1000);

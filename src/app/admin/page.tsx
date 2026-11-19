@@ -237,22 +237,29 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Total Stock Value */}
-        <div className="bg-white dark:bg-[#0c2e21] p-5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-xs flex items-center justify-between">
+        <Link
+          href="/admin/stock"
+          className="bg-white dark:bg-[#0c2e21] p-5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-xs flex items-center justify-between hover:border-amber-400/60 hover:shadow-md transition-all cursor-pointer group"
+          title="Click to view Stock & Batch Inventory"
+        >
           <div>
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              Total Stock Value
-            </p>
+            <div className="flex items-center gap-1.5">
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                Total Stock Value
+              </p>
+              <ArrowRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
+            </div>
             <h3 className="text-2xl font-extrabold text-forest dark:text-emerald-300 mt-1">
               {formatINR(metrics.totalStockValue)}
             </h3>
-            <span className="text-[11px] text-gray-500 dark:text-gray-400 font-medium block mt-1">
-              Cost of Inventory on Hand
+            <span className="text-[11px] text-amber-600 dark:text-amber-400 font-medium block mt-1 group-hover:underline">
+              Cost of Inventory • View Stock →
             </span>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-600">
+          <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-600 group-hover:bg-amber-100 dark:group-hover:bg-amber-900/60 transition-colors">
             <Package className="w-6 h-6" />
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* ── Alert Pills: Low Stock & Expiring Batches ── */}

@@ -1,146 +1,443 @@
 {
-  "settings": {
-    "id": "settings-default",
-    "shopName": "Ahammed Fertilizer",
-    "shopNameBn": "আহাম্মেদ ফার্টিলাইজার",
-    "tagline": "Your Trusted Partner in Agriculture",
-    "taglineBn": "কৃষিতে আপনার বিশ্বস্ত সঙ্গী",
-    "phone": "9091017035",
-    "email": "abmasud128@gmail.com",
-    "addressLine1": "Nandair, Puliyapara",
-    "addressLine2": "Chapmatali, Dakshin Dinajpur",
-    "state": "West Bengal",
-    "pinCode": "733124",
-    "gstin": "19ABCDE1234F1Z5",
-    "fertilizerLicence": "WB/DD/FERT/2015/0428",
-    "pesticideLicence": "WB/DD/PEST/2016/1109",
-    "seedsLicence": "WB/DD/SEED/2018/0091",
-    "upiId": "9091017035@upi",
-    "invoicePrefix": "AF-2026-",
-    "nextInvoiceNumber": 1070,
-    "lowStockDefault": 10,
-    "thermalPrinterSize": "80mm",
-    "termsConditions": "1. Goods once sold will not be returned without cash memo.\n2. Store all pesticides strictly away from children and cattle.\n3. Verify seal and batch number upon delivery.",
-    "termsConditionsBn": "১. আসল ক্যাশমেমো ছাড়া পণ্য ফেরত বা বদল করা হবে না।\n২. কীটনাশক ওষুধ শিশুদের নাগালের বাইরে নিরাপদ স্থানে রাখুন।\n৩. ডেলিভারির সময় সিল ও ব্যাচ নম্বর যাচাই করুন।",
-    "updatedAt": "2026-11-19T15:20:04.372Z",
-    "isStockBaseWeightMigrated": true,
-    "address": "NANDAIR,PULIYAPARA",
-    "enablePublicStockSync": true
-  },
+  "sales": [
+    {
+      "id": "sale-1795116277231",
+      "items": [
+        {
+          "id": "sitem-1795116277232-0",
+          "unit": "45 kg Bag",
+          "profit": 150,
+          "saleId": "sale-1795116277231",
+          "batchId": "batch-1795116213039",
+          "gstRate": 0,
+          "hsnCode": "",
+          "baseUnit": "g",
+          "discount": 0,
+          "quantity": 5,
+          "saleMode": "pack",
+          "unitCost": 290,
+          "productId": "prod-1795116213038",
+          "unitPrice": 320,
+          "variantId": "primary-prod-1795116213038",
+          "cgstAmount": 0,
+          "sgstAmount": 0,
+          "batchNumber": "BAT-2026-447",
+          "productName": "UREA",
+          "totalAmount": 1600,
+          "buyPerBaseUnit": 0.0064,
+          "unitMultiplier": 225000,
+          "sellPerBaseUnit": 0.0071
+        }
+      ],
+      "notes": "",
+      "status": "completed",
+      "roundOff": 0,
+      "subtotal": 1600,
+      "totalTax": 0,
+      "createdAt": "2026-11-19T19:24:37.232Z",
+      "isZeroTax": true,
+      "totalCost": 1450,
+      "upiAmount": 0,
+      "cardAmount": 0,
+      "cashAmount": 1600,
+      "cgstAmount": 0,
+      "customerId": "cust-1795116097109",
+      "grandTotal": 1600,
+      "sgstAmount": 0,
+      "cashierName": "Ahammed Masud (Owner)",
+      "extraCharge": 0,
+      "grossProfit": 150,
+      "paymentMode": "cash",
+      "creditAmount": 0,
+      "customerName": "AB MASUD",
+      "customerPhone": "9091017035",
+      "invoiceNumber": "AF-2026-1070",
+      "discountAmount": 0,
+      "customerVillage": "Nandair",
+      "extraChargeReason": ""
+    }
+  ],
   "users": [
     {
       "id": "user-owner-1",
-      "email": "admin@ahammedfertilizer.com",
-      "fullName": "Ahammed Masud (Owner)",
-      "phone": "9091017035",
       "role": "owner",
+      "email": "admin@ahammedfertilizer.com",
+      "phone": "9091017035",
+      "fullName": "Ahammed Masud (Owner)",
       "isActive": true,
       "createdAt": "2026-01-01T00:00:00Z"
     },
     {
       "id": "user-cashier-1",
-      "email": "cashier@ahammedfertilizer.com",
-      "fullName": "Rahul Soren (Counter Staff)",
-      "phone": "9800000000",
       "role": "cashier",
+      "email": "cashier@ahammedfertilizer.com",
+      "phone": "9800000000",
+      "fullName": "Rahul Soren (Counter Staff)",
       "isActive": true,
       "createdAt": "2026-02-01T00:00:00Z"
     }
   ],
+  "ledger": [],
+  "batches": [
+    {
+      "id": "batch-1795116213039",
+      "mrp": 400,
+      "createdAt": "2026-11-19T19:23:33.039Z",
+      "productId": "prod-1795116213038",
+      "expiryDate": "2027-12-31",
+      "batchNumber": "BAT-2026-447",
+      "sellingPrice": 320,
+      "purchasePrice": 290,
+      "quantityAvailable": 9675000
+    }
+  ],
+  "expenses": [],
+  "products": [
+    {
+      "id": "prod-1795116213038",
+      "mrp": 400,
+      "name": "UREA",
+      "unit": "bag",
+      "brand": "IFFCO",
+      "notes": "",
+      "barcode": "890526904989",
+      "gstRate": 0,
+      "hsnCode": "",
+      "baseUnit": "g",
+      "packSize": "45 kg",
+      "variants": [
+        {
+          "id": "primary-prod-1795116213038",
+          "unitName": "45 kg Bag",
+          "multiplier": 45,
+          "sellingPrice": 320,
+          "purchasePrice": 290,
+          "mrp": 400,
+          "isDefault": true
+        }
+      ],
+      "createdAt": "2026-11-19T19:23:33.039Z",
+      "updatedAt": "2026-11-19T19:23:33.039Z",
+      "categoryId": "fertilizers",
+      "totalStock": 9899995,
+      "displayUnit": "kg",
+      "isPesticide": false,
+      "packageType": "Bag",
+      "initialBatch": {
+        "quantity": 220,
+        "expiryDate": "2027-12-31",
+        "batchNumber": "BAT-2026-447"
+      },
+      "packSizeUnit": "kg",
+      "sellingPrice": 320,
+      "packSizeValue": 45,
+      "profitPerPack": 30,
+      "purchasePrice": 290,
+      "buyPerBaseUnit": 0.0064,
+      "sellPerBaseUnit": 0.0071,
+      "buyPerDisplayUnit": 6.44,
+      "lowStockThreshold": 10,
+      "profitPerBaseUnit": 0.0007,
+      "packSizeInBaseUnit": 45000,
+      "sellPerDisplayUnit": 7.11,
+      "profitPerDisplayUnit": 0.67,
+      "totalStockInBaseUnits": 9675000
+    }
+  ],
+  "settings": {
+    "id": "settings-default",
+    "email": "abmasud128@gmail.com",
+    "gstin": "19ABCDE1234F1Z5",
+    "phone": "9091017035",
+    "state": "West Bengal",
+    "upiId": "9091017035@upi",
+    "address": "NANDAIR,PULIYAPARA",
+    "pinCode": "733124",
+    "tagline": "Your Trusted Partner in Agriculture",
+    "shopName": "Ahammed Fertilizer",
+    "taglineBn": "কৃষিতে আপনার বিশ্বস্ত সঙ্গী",
+    "updatedAt": "2026-11-19T15:20:04.372Z",
+    "shopNameBn": "আহাম্মেদ ফার্টিলাইজার",
+    "addressLine1": "Nandair, Puliyapara",
+    "addressLine2": "Chapmatali, Dakshin Dinajpur",
+    "seedsLicence": "WB/DD/SEED/2018/0091",
+    "invoicePrefix": "AF-2026-",
+    "lowStockDefault": 10,
+    "termsConditions": "1. Goods once sold will not be returned without cash memo.\n2. Store all pesticides strictly away from children and cattle.\n3. Verify seal and batch number upon delivery.",
+    "pesticideLicence": "WB/DD/PEST/2016/1109",
+    "fertilizerLicence": "WB/DD/FERT/2015/0428",
+    "nextInvoiceNumber": 1071,
+    "termsConditionsBn": "১. আসল ক্যাশমেমো ছাড়া পণ্য ফেরত বা বদল করা হবে না।\n২. কীটনাশক ওষুধ শিশুদের নাগালের বাইরে নিরাপদ স্থানে রাখুন।\n৩. ডেলিভারির সময় সিল ও ব্যাচ নম্বর যাচাই করুন।",
+    "thermalPrinterSize": "80mm",
+    "enablePublicStockSync": true,
+    "isStockBaseWeightMigrated": true
+  },
+  "auditLogs": [
+    {
+      "id": "audit-1795117212917",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:40:11.333Z"
+      },
+      "createdAt": "2026-11-19T19:40:12.917Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795116954065",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:35:52.719Z"
+      },
+      "createdAt": "2026-11-19T19:35:54.065Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795116470781",
+      "action": "login",
+      "details": {
+        "ip": "152.58.179.216",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:27:48.984Z"
+      },
+      "createdAt": "2026-11-19T19:27:50.781Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795116279092",
+      "action": "bill_generated",
+      "details": {
+        "grandTotal": 1600,
+        "paymentMode": "cash",
+        "customerName": "AB MASUD",
+        "invoiceNumber": "AF-2026-1070"
+      },
+      "entityId": "sale-1795116277231",
+      "createdAt": "2026-11-19T19:24:39.092Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "sale"
+    },
+    {
+      "id": "audit-1795116215492",
+      "action": "product_created",
+      "details": {
+        "name": "UREA",
+        "brand": "IFFCO"
+      },
+      "entityId": "prod-1795116213038",
+      "createdAt": "2026-11-19T19:23:35.492Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "product"
+    },
+    {
+      "id": "audit-1795116098956",
+      "action": "customer_created",
+      "details": {
+        "name": "AB MASUD",
+        "para": "NANDAIR",
+        "phone": "9091017035",
+        "village": "Nandair",
+        "fatherName": "H AHAMMED"
+      },
+      "entityId": "cust-1795116097109",
+      "createdAt": "2026-11-19T19:21:38.956Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "customer"
+    },
+    {
+      "id": "audit-1795115003374",
+      "action": "product_created",
+      "details": {
+        "name": "Test Urea Bio-Fertilizer",
+        "brand": "Ahammed Agro"
+      },
+      "entityId": "prod-1795115002797",
+      "createdAt": "2026-11-19T19:03:23.374Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "product"
+    },
+    {
+      "id": "audit-1795115002331",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:03:21.503Z"
+      },
+      "createdAt": "2026-11-19T19:03:22.331Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795114991134",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:03:10.197Z"
+      },
+      "createdAt": "2026-11-19T19:03:11.134Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795114983236",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:03:02.524Z"
+      },
+      "createdAt": "2026-11-19T19:03:03.236Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795114975274",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T19:02:54.034Z"
+      },
+      "createdAt": "2026-11-19T19:02:55.274Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795104602031",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T16:10:02.031Z"
+      },
+      "createdAt": "2026-11-19T16:10:02.031Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "audit-1795104522836",
+      "action": "login",
+      "details": {
+        "ip": "127.0.0.1",
+        "role": "owner",
+        "timestamp": "2026-11-19T16:08:42.836Z"
+      },
+      "createdAt": "2026-11-19T16:08:42.836Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "auth"
+    },
+    {
+      "id": "log-clean-1795104406634",
+      "action": "store_cleared_for_testing",
+      "details": {
+        "message": "Demo data cleared for live shop testing."
+      },
+      "createdAt": "2026-11-19T16:06:46.634Z",
+      "userEmail": "owner@ahammed.com",
+      "entityType": "system"
+    }
+  ],
+  "customers": [
+    {
+      "id": "cust-1795116097109",
+      "name": "AB MASUD",
+      "para": "NANDAIR",
+      "notes": "Father: H AHAMMED | Para: NANDAIR",
+      "phone": "9091017035",
+      "village": "Nandair",
+      "createdAt": "2026-11-19T19:21:37.110Z",
+      "updatedAt": "2026-11-19T19:21:37.110Z",
+      "currentDue": 0,
+      "fatherName": "H AHAMMED",
+      "creditLimit": 25000,
+      "totalPurchases": 0
+    }
+  ],
+  "movements": [
+    {
+      "id": "mov-1795116277232-0",
+      "type": "sale",
+      "reason": "Sale Memo #AF-2026-1070 (5 45 kg Bag)",
+      "batchId": "batch-1795116213039",
+      "quantity": 225000,
+      "createdAt": "2026-11-19T19:24:37.232Z",
+      "productId": "prod-1795116213038",
+      "batchNumber": "BAT-2026-447",
+      "productName": "UREA",
+      "balanceAfter": 9675000
+    },
+    {
+      "id": "mov-1795116213039",
+      "type": "adjustment_add",
+      "reason": "Initial Opening Stock Entry (220 Bags = 9900000 g)",
+      "batchId": "batch-1795116213039",
+      "quantity": 9900000,
+      "createdAt": "2026-11-19T19:23:33.039Z",
+      "productId": "prod-1795116213038",
+      "batchNumber": "BAT-2026-447",
+      "productName": "UREA",
+      "balanceAfter": 9900000
+    }
+  ],
+  "purchases": [],
+  "suppliers": [],
   "categories": [
     {
       "id": "fertilizers",
+      "icon": "🌱",
       "name": "Fertilizers",
       "nameBn": "সার",
-      "icon": "🌱",
       "isActive": true
     },
     {
       "id": "micronutrients",
+      "icon": "🧪",
       "name": "Micronutrients",
       "nameBn": "অণুখাদ্য",
-      "icon": "🧪",
       "isActive": true
     },
     {
       "id": "insecticides",
+      "icon": "🐛",
       "name": "Insecticides",
       "nameBn": "কীটনাশক",
-      "icon": "🐛",
       "isActive": true
     },
     {
       "id": "fungicides",
+      "icon": "🍄",
       "name": "Fungicides",
       "nameBn": "ছত্রাকনাশক",
-      "icon": "🍄",
       "isActive": true
     },
     {
       "id": "herbicides",
+      "icon": "🌿",
       "name": "Herbicides",
       "nameBn": "আগাছানাশক",
-      "icon": "🌿",
       "isActive": true
     },
     {
       "id": "seeds",
+      "icon": "🌾",
       "name": "Seeds",
       "nameBn": "বীজ",
-      "icon": "🌾",
       "isActive": true
     },
     {
       "id": "tools",
+      "icon": "⚙️",
       "name": "Tools & Sprayers",
       "nameBn": "স্প্রেয়ার ও সরঞ্জাম",
-      "icon": "⚙️",
       "isActive": true
-    }
-  ],
-  "products": [],
-  "batches": [],
-  "movements": [],
-  "suppliers": [],
-  "purchases": [],
-  "customers": [],
-  "ledger": [],
-  "sales": [],
-  "expenses": [],
-  "auditLogs": [
-    {
-      "userEmail": "owner@ahammed.com",
-      "action": "login",
-      "entityType": "auth",
-      "details": {
-        "role": "owner",
-        "ip": "127.0.0.1",
-        "timestamp": "2026-11-19T16:10:02.031Z"
-      },
-      "id": "audit-1795104602031",
-      "createdAt": "2026-11-19T16:10:02.031Z"
-    },
-    {
-      "userEmail": "owner@ahammed.com",
-      "action": "login",
-      "entityType": "auth",
-      "details": {
-        "role": "owner",
-        "ip": "127.0.0.1",
-        "timestamp": "2026-11-19T16:08:42.836Z"
-      },
-      "id": "audit-1795104522836",
-      "createdAt": "2026-11-19T16:08:42.836Z"
-    },
-    {
-      "id": "log-clean-1795104406634",
-      "userEmail": "owner@ahammed.com",
-      "action": "store_cleared_for_testing",
-      "entityType": "system",
-      "createdAt": "2026-11-19T16:06:46.634Z",
-      "details": {
-        "message": "Demo data cleared for live shop testing."
-      }
     }
   ]
 }

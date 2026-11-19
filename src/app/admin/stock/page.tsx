@@ -17,6 +17,8 @@ import {
   FileText,
   X,
   CheckCircle2,
+  Package,
+  IndianRupee,
 } from 'lucide-react';
 import { ProductRecord, StockMovementRecord } from '@/types/admin';
 import { formatStockDisplay, parsePackSize } from '@/lib/inventory/units';
@@ -201,6 +203,22 @@ export default function AdminStockPage() {
     return days <= 0 && b.quantityAvailable > 0;
   }).length;
 
+  const totalStockValuation = batches.reduce((acc, b) => {
+    const prod = products.find((p) => p.id === b.productId);
+    const packSize = prod?.packSizeInBaseUnit && prod.packSizeInBaseUnit > 0 ? prod.packSizeInBaseUnit : 1;
+    const packs = b.quantityAvailable / packSize;
+    const buyPrice = b.purchasePrice || prod?.purchasePrice || 0;
+    return acc + packs * buyPrice;
+  }, 0);
+
+  const formatINR = (val: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0,
+    }).format(val || 0);
+  };
+
   return (
     <div className="space-y-6">
       {/* ── Page Header ── */}
@@ -227,7 +245,23 @@ export default function AdminStockPage() {
       </div>
 
       {/* ── Highlights / Guard Banners ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Total Stock Valuation */}
+        <div className="p-4 rounded-xl border border-amber-300 dark:border-amber-800 bg-amber-50/70 dark:bg-amber-950/20 flex items-start gap-3">
+          <Package className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div>
+            <h4 className="text-xs font-bold text-amber-900 dark:text-amber-300">
+              Total Stock Valuation
+            </h4>
+            <p className="text-base font-extrabold text-forest dark:text-emerald-300 mt-0.5">
+              {formatINR(totalStockValuation)}
+            </p>
+            <span className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">
+              Based on batch cost price
+            </span>
+          </div>
+        </div>
+
         {/* Pesticide Expiry Guard */}
         <div className="p-4 rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50/70 dark:bg-emerald-950/20 flex items-start gap-3">
           <ShieldAlert className="w-5 h-5 text-leaf shrink-0 mt-0.5" />
