@@ -20,7 +20,12 @@ export function proxy(req: NextRequest) {
   // =========================================================================
   if (isAdminPage || isAdminApi) {
     // Public admin login paths
-    if (pathname === '/admin/login' || pathname === '/api/admin/auth/login') {
+    if (
+      pathname === '/admin/login' ||
+      pathname === '/api/admin/auth/login' ||
+      pathname === '/api/admin/auth/otp/send' ||
+      pathname === '/api/admin/auth/otp/verify'
+    ) {
       const res = NextResponse.next();
       res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
       return res;
