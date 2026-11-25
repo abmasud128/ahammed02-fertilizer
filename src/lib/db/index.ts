@@ -674,7 +674,22 @@ export const db = {
   // Customers & Ledger
   async getCustomers(): Promise<CustomerRecord[]> {
     const store = await loadStore();
-    return store.customers;
+    const activeSales = store.sales.filter((s) => s.status !== 'cancelled');
+
+    return store.customers.map((customer) => {
+      const custPhone = (customer.phone || '').replace(/\D/g, '').slice(-10);
+      const computedTotal = activeSales.reduce((sum, sale) => {
+        const salePhone = (sale.customerPhone || '').replace(/\D/g, '').slice(-10);
+        const matchesId = Boolean(sale.customerId && sale.customerId === customer.id);
+        const matchesPhone = Boolean(!sale.customerId && custPhone && salePhone && custPhone === salePhone);
+        return matchesId || matchesPhone ? sum + (Number(sale.grandTotal) || 0) : sum;
+      }, 0);
+
+      return {
+        ...customer,
+        totalPurchases: Math.round(computedTotal * 100) / 100,
+      };
+    });
   },
 
   async getCustomerById(id: string): Promise<CustomerRecord | undefined> {
@@ -808,6 +823,7 @@ export const db = {
       buyPerBaseUnit?: number;
       sellPerBaseUnit?: number;
       totalAmount?: number;
+      pricePerKg?: number;
     }[];
   }): Promise<SaleRecord> {
     const store = await loadStore();
@@ -954,40 +970,43 @@ export const db = {
 
     const grossProfit = saleData.grandTotal - totalCost;
 
-    // Handle Customer Credit (Udhaar)
-    if (saleData.creditAmount > 0) {
-      let customer = saleData.customerId
-        ? store.customers.find((c) => c.id === saleData.customerId)
-        : store.customers.find((c) => c.phone === saleData.customerPhone);
+    // Link customer & update Total Purchases + Credit (Udhaar)
+    let matchedCustomer = saleData.customerId
+      ? store.customers.find((c) => c.id === saleData.customerId)
+      : saleData.customerPhone
+      ? store.customers.find((c) => c.phone === saleData.customerPhone)
+      : undefined;
 
-      if (!customer && saleData.customerPhone) {
-        // Quick create customer
-        customer = {
-          id: `cust-${Date.now()}`,
-          name: saleData.customerName,
-          phone: saleData.customerPhone,
-          village: saleData.customerVillage || '',
-          creditLimit: 30000,
-          currentDue: 0,
-          totalPurchases: 0,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-        store.customers.push(customer);
-      }
+    if (!matchedCustomer && saleData.creditAmount > 0 && saleData.customerPhone) {
+      // Quick create customer on credit sale
+      matchedCustomer = {
+        id: `cust-${Date.now()}`,
+        name: saleData.customerName,
+        phone: saleData.customerPhone,
+        village: saleData.customerVillage || '',
+        creditLimit: 30000,
+        currentDue: 0,
+        totalPurchases: 0,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      store.customers.push(matchedCustomer);
+    }
 
-      if (customer) {
-        customer.currentDue += saleData.creditAmount;
-        customer.totalPurchases = (customer.totalPurchases || 0) + saleData.grandTotal;
+    if (matchedCustomer) {
+      matchedCustomer.totalPurchases = (matchedCustomer.totalPurchases || 0) + saleData.grandTotal;
+
+      if (saleData.creditAmount > 0) {
+        matchedCustomer.currentDue += saleData.creditAmount;
 
         store.ledger.unshift({
           id: `led-${Date.now()}`,
-          customerId: customer.id,
+          customerId: matchedCustomer.id,
           saleId,
           invoiceNumber: invNumber,
           type: 'bill_credit',
           amount: saleData.creditAmount,
-          balanceAfter: customer.currentDue,
+          balanceAfter: matchedCustomer.currentDue,
           paymentMode: 'credit',
           notes: `Credit on Bill #${invNumber}`,
           createdAt: new Date().toISOString(),
@@ -1069,22 +1088,25 @@ export const db = {
       });
     }
 
-    // Rollback customer credit if applicable
-    if (sale.creditAmount > 0 && sale.customerId) {
+    // Rollback customer credit & total purchases if applicable
+    if (sale.customerId) {
       const customer = store.customers.find((c) => c.id === sale.customerId);
       if (customer) {
-        customer.currentDue -= sale.creditAmount;
-        if (customer.currentDue < 0) customer.currentDue = 0;
-        store.ledger.unshift({
-          id: `led-${Date.now()}`,
-          customerId: customer.id,
-          saleId: sale.id,
-          type: 'adjustment',
-          amount: -sale.creditAmount,
-          balanceAfter: customer.currentDue,
-          notes: `Reversed Credit from Cancelled Bill #${sale.invoiceNumber}`,
-          createdAt: new Date().toISOString(),
-        });
+        customer.totalPurchases = Math.max(0, (customer.totalPurchases || 0) - sale.grandTotal);
+        if (sale.creditAmount > 0) {
+          customer.currentDue -= sale.creditAmount;
+          if (customer.currentDue < 0) customer.currentDue = 0;
+          store.ledger.unshift({
+            id: `led-${Date.now()}`,
+            customerId: customer.id,
+            saleId: sale.id,
+            type: 'adjustment',
+            amount: -sale.creditAmount,
+            balanceAfter: customer.currentDue,
+            notes: `Reversed Credit from Cancelled Bill #${sale.invoiceNumber}`,
+            createdAt: new Date().toISOString(),
+          });
+        }
       }
     }
 
