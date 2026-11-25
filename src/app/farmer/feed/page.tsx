@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAquaLanguage } from '@/lib/i18n/aqua-context';
 import { Utensils, Plus, CheckCircle2, AlertCircle, Clock, ShieldCheck } from 'lucide-react';
 import { AquaFeedBrand } from '@/types/aqua';
 
 export default function FarmerFeedPage() {
+  const router = useRouter();
   const { d, isBn } = useAquaLanguage();
 
   const [feedLogs, setFeedLogs] = useState<any[]>([]);
@@ -29,7 +31,13 @@ export default function FarmerFeedPage() {
   useEffect(() => {
     fetchFeedLogs();
     fetch('/api/farmer/cycles')
-      .then((r) => r.json())
+      .then((r) => {
+        if (r.status === 401) {
+          router.replace('/farmer/login?returnUrl=/farmer/feed');
+          return null;
+        }
+        return r.json();
+      })
       .then((data) => {
         if (data && data.success && data.cycles.length > 0) {
           setCycles(data.cycles);

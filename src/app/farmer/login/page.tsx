@@ -264,7 +264,7 @@ export default function FarmerLoginPage() {
       </header>
 
       {/* ── Main Container ── */}
-      <main className="max-w-xl w-full mx-auto my-auto py-6">
+      <div className="max-w-xl w-full mx-auto my-auto py-6">
         {/* ═════════════════════════════════════════════════════════════════════ */}
         {/* ── STEP 1: PORTAL SELECTION (FERTILIZER VS AQUACULTURE) ── */}
         {/* ═════════════════════════════════════════════════════════════════════ */}
@@ -1005,12 +1005,12 @@ export default function FarmerLoginPage() {
             )}
           </div>
         )}
-      </main>
+      </div>
 
       {/* ── Footer ── */}
       <footer className="max-w-4xl w-full mx-auto text-center pt-4 border-t border-gray-200/60 dark:border-white/10 text-xs text-gray-400">
         <p>
-          Ahammed Fertilizer • Dakshin Dinajpur • Govt. Authorized Shop • হেল্পলাইন: +91 9091017035
+          Ahammed Fertilizer • Dakshin Dinajpur • Govt. Authorized Shop • {isBn ? 'হেল্পলাইন:' : 'Helpline:'} +91 9091017035
         </p>
       </footer>
     </div>

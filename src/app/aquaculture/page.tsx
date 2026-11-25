@@ -39,8 +39,8 @@ export default function DedicatedAquaculturePage() {
   // Interactive Troubleshooter State
   const [selectedIssueIndex, setSelectedIssueIndex] = useState<number>(0);
 
-  // Calculations
-  const pondWaterVolumeLakhLitre = Math.round(pondArea * 40.46 * pondDepth * 0.3048 * 10) / 100;
+  // Calculations (1 decimal = 40.46 m², 1 ft = 0.3048 m, 1 m³ = 1000 L = 0.01 Lakh L)
+  const pondWaterVolumeLakhLitre = Math.round(pondArea * 40.46 * pondDepth * 0.3048) / 100;
   
   // Fingerling stocking rules
   const fingerlingsPerDecimal = cultureType === 'imc' ? 40 : cultureType === 'catfish' ? 120 : 60;

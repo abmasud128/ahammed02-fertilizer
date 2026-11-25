@@ -47,7 +47,7 @@ export const siteConfig = {
   ],
 
   // Maps
-  mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28800!2d88.75!3d25.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sChapmatali%2C+Dakshin+Dinajpur!5e0!3m2!1sen!2sin!4v1',
+  mapEmbedUrl: 'https://maps.google.com/maps?q=Chapmatali,Dakshin+Dinajpur,West+Bengal,733124&t=&z=13&ie=UTF8&iwloc=&output=embed',
   directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Chapmatali+Dakshin+Dinajpur+West+Bengal+733124',
 
   // WhatsApp Pre-filled Messages

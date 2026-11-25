@@ -440,7 +440,7 @@ export default function BookTestPage() {
             </div>
             <div>
               <p className="text-xs text-charcoal/60 dark:text-gray-400">সরাসরি ফোন করে বুক করতে চান?</p>
-              <p className="text-sm font-bold text-forest dark:text-leaf">+91 97354 28657 / +91 94343 00000</p>
+              <p className="text-sm font-bold text-forest dark:text-leaf">+91 90910 17035</p>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs text-charcoal/70 dark:text-gray-300">

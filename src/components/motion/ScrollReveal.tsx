@@ -25,15 +25,15 @@ export default function ScrollReveal({
     if (shouldReduceMotion) return { x: 0, y: 0 };
     switch (direction) {
       case 'up':
-        return { x: 0, y: 40 };
+        return { x: 0, y: 20 };
       case 'down':
-        return { x: 0, y: -40 };
+        return { x: 0, y: -20 };
       case 'left':
-        return { x: 40, y: 0 };
+        return { x: 20, y: 0 };
       case 'right':
-        return { x: -40, y: 0 };
+        return { x: -20, y: 0 };
       default:
-        return { x: 0, y: 40 };
+        return { x: 0, y: 20 };
     }
   };
 
@@ -51,7 +51,7 @@ export default function ScrollReveal({
         x: 0,
         y: 0,
       }}
-      viewport={{ once: true, margin: '-100px' }}
+      viewport={{ once: true, amount: 'some' }}
       transition={{
         duration: shouldReduceMotion ? 0.01 : duration,
         delay: shouldReduceMotion ? 0 : delay,

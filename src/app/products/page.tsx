@@ -189,8 +189,7 @@ function ProductsCatalogContent() {
               const waUrl = formatWhatsAppUrl(siteConfig.whatsapp, message);
 
               return (
-                <ScrollReveal key={prod.id} delay={Math.min(idx * 0.05, 0.4)}>
-                  <Card hover tilt className="h-full flex flex-col justify-between overflow-hidden group">
+                <Card key={prod.id} hover tilt className="h-full flex flex-col justify-between overflow-hidden group">
                     <div className="p-5 space-y-4 flex-1">
                       {/* Card Header: Icon & Category Badge */}
                       <div className="flex items-center justify-between">
@@ -285,7 +284,6 @@ function ProductsCatalogContent() {
                       </div>
                     </div>
                   </Card>
-                </ScrollReveal>
               );
             })}
           </div>

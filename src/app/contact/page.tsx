@@ -392,7 +392,7 @@ export default function ContactPage() {
                     allowFullScreen={false}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    className="w-full h-full"
+                    className="w-full h-full min-h-[260px]"
                   />
                 </div>
               </Card>

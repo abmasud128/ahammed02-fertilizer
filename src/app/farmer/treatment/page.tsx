@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAquaLanguage } from '@/lib/i18n/aqua-context';
 import {
   Stethoscope,
@@ -16,6 +17,7 @@ import {
 } from 'lucide-react';
 
 export default function FarmerTreatmentPage() {
+  const router = useRouter();
   const { d, isBn } = useAquaLanguage();
 
   const [treatments, setTreatments] = useState<any[]>([]);
@@ -28,7 +30,13 @@ export default function FarmerTreatmentPage() {
   const fetchTreatments = () => {
     setLoading(true);
     fetch('/api/farmer/treatment')
-      .then((r) => r.json())
+      .then((r) => {
+        if (r.status === 401) {
+          router.replace('/farmer/login?returnUrl=/farmer/treatment');
+          return null;
+        }
+        return r.json();
+      })
       .then((data) => {
         if (data && data.success) {
           setTreatments(data.records || []);

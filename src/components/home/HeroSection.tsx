@@ -110,7 +110,7 @@ export default function HeroSection() {
 
   // Animated Word Reveal Helper
   const wordsPart1 = (locale === 'bn' ? 'উন্নত ফলন শুরু হয়' : 'Better Crops Start With').split(' ');
-  const wordsPart2 = (locale === 'bn' ? 'সেরা কৃষি উপকরণে' : 'Better Inputs').split(' ');
+  const wordsPart2 = (locale === 'bn' ? 'কৃষি উপকরণে' : 'Inputs').split(' ');
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
