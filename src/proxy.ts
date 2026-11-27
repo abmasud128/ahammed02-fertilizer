@@ -24,7 +24,8 @@ export function proxy(req: NextRequest) {
       pathname === '/admin/login' ||
       pathname === '/api/admin/auth/login' ||
       pathname === '/api/admin/auth/otp/send' ||
-      pathname === '/api/admin/auth/otp/verify'
+      pathname === '/api/admin/auth/otp/verify' ||
+      pathname === '/api/admin/auth/otp/reset-password'
     ) {
       const res = NextResponse.next();
       res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');

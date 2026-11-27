@@ -1,28 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHash, timingSafeEqual } from 'node:crypto';
+import bcrypt from 'bcryptjs';
 import {
   signSessionToken,
   SESSION_COOKIE_NAME,
   checkLoginRateLimit,
   resetLoginRateLimit,
 } from '@/lib/auth/session';
+import { loadAdminCredentials } from '@/lib/auth/admin-otp';
 import { db } from '@/lib/db';
 
-const ownerEmail = process.env.ADMIN_LOGIN_EMAIL || 'owner@ahammed.com';
-const ownerPassword = process.env.ADMIN_LOGIN_PASSWORD || 'admin123';
-const cashierEmail = process.env.CASHIER_LOGIN_EMAIL || 'cashier@ahammed.com';
-const cashierPassword = process.env.CASHIER_LOGIN_PASSWORD || 'admin123';
+const ownerEmail = (process.env.ADMIN_LOGIN_EMAIL || 'abmasud128@gmail.com').trim().toLowerCase();
+const ownerPassword = process.env.ADMIN_LOGIN_PASSWORD || 'Masud123@...';
 
 function matchesSecret(input: string, expected: string): boolean {
-  if (
-    input === expected ||
-    input === 'admin123' ||
-    input === 'admin' ||
-    input === 'admin1234' ||
-    input === 'admin12345678'
-  ) {
-    return true;
-  }
   const inputHash = createHash('sha256').update(input).digest();
   const expectedHash = createHash('sha256').update(expected).digest();
   return timingSafeEqual(inputHash, expectedHash);
@@ -60,32 +51,19 @@ export async function POST(req: NextRequest) {
     const cleanEmail = String(email).trim().toLowerCase();
     const cleanPass = String(password).trim();
 
-    const ownerAliases = [
-      ownerEmail.trim().toLowerCase(),
-      'owner@ahammed.com',
-      'admin@ahammed.com',
-      'admin',
-      'owner',
-      'masud',
-      'ahammed',
-      'ahammedfertilizer@gmail.com',
-    ];
+    const storedCreds = await loadAdminCredentials();
+    const customCred = storedCreds[cleanEmail];
 
-    const cashierAliases = [
-      cashierEmail.trim().toLowerCase(),
-      'cashier@ahammed.com',
-      'cashier',
-    ];
+    let isOwner = false;
+    if (cleanEmail === ownerEmail) {
+      if (customCred?.passwordHash) {
+        isOwner = await bcrypt.compare(cleanPass, customCred.passwordHash);
+      } else {
+        isOwner = matchesSecret(cleanPass, ownerPassword);
+      }
+    }
 
-    const isOwner =
-      ownerAliases.includes(cleanEmail) &&
-      matchesSecret(cleanPass, ownerPassword);
-
-    const isCashier =
-      cashierAliases.includes(cleanEmail) &&
-      matchesSecret(cleanPass, cashierPassword);
-
-    if (!isOwner && !isCashier) {
+    if (!isOwner) {
       return NextResponse.json(
         { success: false, error: 'Invalid email or password. Please try again.' },
         { status: 401 }
@@ -95,13 +73,13 @@ export async function POST(req: NextRequest) {
     // Reset rate limit on success
     resetLoginRateLimit(ip);
 
-    const role = isCashier ? 'cashier' : 'owner';
-    const fullName = isCashier ? 'Rahul Soren (Cashier)' : 'Ahammed Masud (Owner)';
+    const role = 'owner';
+    const fullName = 'Ahammed Masud (Owner)';
     const finalEmail = cleanEmail;
 
     // Sign JWT Token
     const token = signSessionToken({
-      userId: isCashier ? 'user-cashier-1' : 'user-owner-1',
+      userId: 'user-owner-1',
       email: finalEmail,
       name: fullName,
       role,
@@ -118,7 +96,7 @@ export async function POST(req: NextRequest) {
     const res = NextResponse.json({
       success: true,
       user: {
-        id: isCashier ? 'user-cashier-1' : 'user-owner-1',
+        id: 'user-owner-1',
         email: finalEmail,
         name: fullName,
         role,

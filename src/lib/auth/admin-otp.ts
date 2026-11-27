@@ -10,8 +10,16 @@ export interface OtpTokenRecord {
   sentAt: number;
 }
 
+export interface AdminCredentialRecord {
+  passwordHash: string;
+  updatedAt: string;
+}
+
 const OTP_STORE_KEY = 'admin_otp_tokens';
 const OTP_LOCAL_FILE = path.join(process.cwd(), 'data', 'admin-otp-tokens.json');
+
+const CRED_STORE_KEY = 'admin_credentials';
+const CRED_LOCAL_FILE = path.join(process.cwd(), 'data', 'admin-credentials.json');
 
 export async function loadAdminOtpTokens(): Promise<Record<string, OtpTokenRecord>> {
   return getCloudData<Record<string, OtpTokenRecord>>(OTP_STORE_KEY, OTP_LOCAL_FILE, () => ({}));
@@ -19,6 +27,14 @@ export async function loadAdminOtpTokens(): Promise<Record<string, OtpTokenRecor
 
 export async function saveAdminOtpTokens(tokens: Record<string, OtpTokenRecord>): Promise<void> {
   await saveCloudData(OTP_STORE_KEY, OTP_LOCAL_FILE, tokens);
+}
+
+export async function loadAdminCredentials(): Promise<Record<string, AdminCredentialRecord>> {
+  return getCloudData<Record<string, AdminCredentialRecord>>(CRED_STORE_KEY, CRED_LOCAL_FILE, () => ({}));
+}
+
+export async function saveAdminCredentials(creds: Record<string, AdminCredentialRecord>): Promise<void> {
+  await saveCloudData(CRED_STORE_KEY, CRED_LOCAL_FILE, creds);
 }
 
 export function hashAdminOtp(email: string, otp: string): string {
